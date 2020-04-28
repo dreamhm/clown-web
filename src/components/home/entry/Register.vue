@@ -1,11 +1,11 @@
 <template>
   <div id="registerDiv">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户名" prop="dr02u">
-        <el-input v-model.number="ruleForm.dr02u"></el-input>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model.number="ruleForm.username"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="dr03u">
-        <el-input type="password" v-model="ruleForm.dr03u" autocomplete="off"></el-input>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="pwd">
         <el-input type="password" v-model="ruleForm.pwd" autocomplete="off"></el-input>
@@ -23,14 +23,14 @@
   export default {
     name: 'Register',
     data () {
-      var checkDr02u = (rule, value, callback) => {
+      var checkUsername = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('账号不能为空'));
         } else {
           callback();
         }
       };
-      var validateDr03u = (rule, value, callback) => {
+      var validatePassword = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
@@ -43,7 +43,7 @@
       var validatePwd = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.dr03u) {
+        } else if (value !== this.ruleForm.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -51,16 +51,16 @@
       };
       return {
         ruleForm: {
-          dr02u: '',
-          dr03u: '',
+          username: '',
+          password: '',
           pwd: ''
         },
         rules: {
-          dr02u: [
-            { validator: checkDr02u, trigger: 'blur' }
+          username: [
+            { validator: checkUsername, trigger: 'blur' }
           ],
-          dr03u: [
-            { validator: validateDr03u, trigger: 'blur' }
+          password: [
+            { validator: validatePassword, trigger: 'blur' }
           ],
           pwd: [
             { validator: validatePwd, trigger: 'blur' }
@@ -72,18 +72,12 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.ruleForm)
-            const detail = {dr02u: this.ruleForm.dr02u, dr03u:this.ruleForm.dr03u}
-            this.$axios.post("user/regist", detail)
-            .then(res=>{
-              if (res.data.code === 0){
-                // 重定向页面 Home
-                this.$router.push('Login');
-              } else {
-                alert("no")
+            const detail = {username: this.ruleForm.username, password:this.ruleForm.password}
+            this.$server.userRegister(detail).then(data=>{
+              if(data.code == 0){
+                this.$router.push('login');
               }
             })
-            .catch(console.log)
           } else {
             console.log('error submit!!');
             return false;

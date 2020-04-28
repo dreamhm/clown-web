@@ -74,12 +74,12 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             const detail = {username: this.ruleForm.username, password:this.ruleForm.password}
-            this.$server.login(detail).then(data=>{
+            this.$server.userLogin(detail).then(data=>{
               if(data.code == 0){
                 // 存储数据至 localStorage
                 // localStorage.setItem("userId", res.data.data.userId);
                 // localStorage.setItem("token", res.data.data.token);
-                this.$router.push('home');
+                this.$router.push('main');
               }
             })
           } else {
