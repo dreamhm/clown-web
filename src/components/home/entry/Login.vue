@@ -79,6 +79,7 @@
                 // 存储数据至 localStorage
                 // localStorage.setItem("userId", res.data.data.userId);
                 // localStorage.setItem("token", res.data.data.token);
+                localStorage.setItem("token", data.result);
                 this.$router.push('main');
               }
             })

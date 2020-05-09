@@ -15,8 +15,11 @@ httpService.interceptors.request.use(
         // 根据条件加入token-安全携带
         if (true) { // 需自定义
             // 让每个请求携带token
-            config.headers['userId'] = localStorage.getItem("userId");
+            // config.headers['userId'] = localStorage.getItem("userId");
             config.headers['token'] = localStorage.getItem("token");
+            config.headers = {
+                'Content-Type': 'application/json'
+            }
         }
         return config;
     }, 

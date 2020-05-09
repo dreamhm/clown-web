@@ -39,7 +39,7 @@ const router = new Router({
       name: 'Main',
       component: Main,
       meta: {
-        isChecked: false
+        isChecked: true
       }
     }
   ]
@@ -51,9 +51,11 @@ router.beforeEach(function (to, from, next) {
     next(); // 放行
   } else {
     // 获取localStorage中参数，若有则视为登录 若没有则视为未登录
-    let userId = localStorage.getItem("userId");
+    // let userId = localStorage.getItem("userId");
+    // let token = localStorage.getItem("token");
+    // if (userId && token) {
     let token = localStorage.getItem("token");
-    if (userId && token) {
+    if(token){
       next(); // 放行
     } else {
       next( { name: "Login"}); // 重定向 至登录页面
