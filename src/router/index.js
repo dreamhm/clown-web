@@ -4,6 +4,7 @@ import Home from '@/components/home/Home'
 import Login from '@/components/home/entry/Login'
 import Register from '@/components/home/entry/Register'
 import Main from '@/components/main/Main'
+import Navigation from '@/components/common/Navigation'
 
 Vue.use(Router)
 
@@ -40,6 +41,13 @@ const router = new Router({
       component: Main,
       meta: {
         isChecked: true
+      }
+    },{
+      path: '/navigation',
+      name: 'Navigation',
+      component: Navigation,
+      meta: {
+        isChecked: false
       }
     }
   ]

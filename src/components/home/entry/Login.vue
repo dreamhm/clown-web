@@ -75,11 +75,11 @@
           if (valid) {
             const detail = {username: this.ruleForm.username, password:this.ruleForm.password}
             this.$server.userLogin(detail).then(data=>{
-              if(data.code == 0){
+              if(data.code == 1001){
                 // 存储数据至 localStorage
                 // localStorage.setItem("userId", res.data.data.userId);
                 // localStorage.setItem("token", res.data.data.token);
-                localStorage.setItem("token", data.result);
+                localStorage.setItem("token", data.result.Authorization);
                 this.$router.push('main');
               }
             })

@@ -15,10 +15,11 @@ httpService.interceptors.request.use(
         // 根据条件加入token-安全携带
         if (true) { // 需自定义
             // 让每个请求携带token
-            // config.headers['userId'] = localStorage.getItem("userId");
-            config.headers['token'] = localStorage.getItem("token");
+            // config.headers['userId'] = 'localStorage.getItem("userId")';
+            // config.headers['Authorization'] = localStorage.getItem("token");
             config.headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("token")
             }
         }
         return config;
@@ -34,7 +35,7 @@ httpService.interceptors.response.use(
     response => {
         // 统一处理状态
         const res = response.data;
-        if (res.code != 0) { // 需自定义
+        if (res.code != 1001) { // 需自定义
             // 返回异常
             return Promise.reject({
                 code: res.code,
