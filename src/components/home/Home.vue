@@ -1,14 +1,8 @@
 <template>
   <div class="hello">
+    <HomeMenu/>
+    
     <div class="container">
-      <el-row :gutter="10">
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <el-button type="danger" @click='longin()'>登录</el-button>
-        </el-col>
-        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-          <el-button type="danger" @click='register()'>注册</el-button>
-        </el-col>
-      </el-row>
       <el-calendar v-model="value"/>
     </div>
   </div>
@@ -24,12 +18,6 @@ export default {
     }
   },
   methods: {
-    longin(){
-      this.$router.push('login');
-    },
-    register(){
-      this.$router.push('register');
-    }
   }
 }
 </script>

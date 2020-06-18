@@ -6,7 +6,8 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import { server } from './utils/api'
-import Menu from '@/components/common/Menu.vue'
+import Menu from './components/common/Menu'
+import HomeMenu from './components/common/HomeMenu'
 
 Vue.config.productionTip = false
 
@@ -14,6 +15,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$server = server
 Vue.component (Menu.name, Menu);
+Vue.component (HomeMenu.name, HomeMenu);
+
 
 /* eslint-disable no-new */
 new Vue({
