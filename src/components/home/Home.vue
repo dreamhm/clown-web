@@ -1,20 +1,14 @@
 <template>
   <div class="hello">
-    <Menu />
     <div class="container">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <div class="grid-content bg-purple">
-            <el-button type="danger" @click='longin()'>登录</el-button>
-          </div>
+          <el-button type="danger" @click='longin()'>登录</el-button>
         </el-col>
         <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-          <div class="grid-content bg-purple">
-            <el-button type="danger" @click='register()'>注册</el-button>
-          </div>
+          <el-button type="danger" @click='register()'>注册</el-button>
         </el-col>
       </el-row>
-
       <el-calendar v-model="value"/>
     </div>
   </div>
@@ -40,25 +34,9 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 .container {
     padding: 80px 20px 20px 20px;
     min-width: 1024px;
-}
-.el-col {
-  border-radius: 4px;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
 }
 </style>

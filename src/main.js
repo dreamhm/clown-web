@@ -6,14 +6,14 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import { server } from './utils/api'
-import Menu from './components/common/Menu'
+import Menu from '@/components/common/Menu.vue'
 
 Vue.config.productionTip = false
-Vue.component (Menu.name, Menu);
 
 //安装插件
 Vue.use(ElementUI)
 Vue.prototype.$server = server
+Vue.component (Menu.name, Menu);
 
 /* eslint-disable no-new */
 new Vue({

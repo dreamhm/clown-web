@@ -65,7 +65,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item><a href="/individual.htlm">个人中心</a></el-dropdown-item>
             <el-dropdown-item><a href="/setting.html">密码设置</a></el-dropdown-item>
-            <el-dropdown-item><a href="/logout">退出</a></el-dropdown-item>
+            <el-dropdown-item><a @click='signOut()'>退出</a></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import '../assets/reset.css';
+  import '../../assets/reset.css';
   // import '../assets/iconfont.css';
   export default {
     name : 'Menu',
@@ -377,7 +377,11 @@
      
     },
     methods: {
-     
+      signOut () {
+        localStorage.removeItem("token");
+        // 重定向页面 Home
+        this.$router.push('home');
+      }
     },
   }
 </script>
@@ -518,6 +522,4 @@
   .icon-yulancopy{
     font-size: 12px;
   }
-
-
 </style>

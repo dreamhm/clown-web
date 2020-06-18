@@ -40,7 +40,7 @@ const router = new Router({
       name: 'Main',
       component: Main,
       meta: {
-        isChecked: true
+        isChecked: false
       }
     },{
       path: '/userInfo',
