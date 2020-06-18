@@ -1,0 +1,99 @@
+html,body{
+  padding: 0;
+  margin:0;
+  font-size: 14px;
+  background: #DDE7F0;
+}
+ul,li,h1,h2,h3,h4,h5,h6,p{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: #666666;
+}
+.warpper{
+  margin: 75px 15px 15px 15px;
+  background: #ffffff;
+  padding: 10px 15px;
+  min-width: 950px;
+}
+
+ul li{
+  list-style: none;
+}
+
+.header{
+  padding: 0;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 20px 0;
+  border-bottom: 2px solid #eeeeee;
+  justify-content: space-between;
+}
+.header .subHeader{
+  display: flex;
+  align-items: center;
+}
+.header .subHeader em{
+  width: 32px;
+  height: 32px;
+  background: #F56C6C;
+  border-radius: 2px;
+  display: block;
+  text-align: center;
+  margin-right: 10px;
+}
+.header .subHeader em i{
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 32px;
+}
+.header .subHeader .title p{
+  color: #999999;
+  font-size: 12px;
+}
+.header .subHeader .title h4{
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section{
+  padding: 15px 0;
+}
+.section .el-row .el-col{
+  display: -webkit-box;
+  margin: 15px 0;
+}
+.section .el-row .el-col p{
+  width: 150px;
+  text-align: left;
+  color: #999999;
+}
+.section .el-row .el-col span{
+  /* color: #333333; */
+  /* display: block; */
+}
+.section h4{
+  color: #666666;
+  font-weight: 600;
+  line-height: 40px;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 10px;
+}
+
+.v-modal{
+  opacity: 0.3;
+}
+
+.el-drawer__header{
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.el-dialog__footer{
+  padding: 15px;
+  text-align: center;
+  border-top: 2px solid #eee;
+  background: #f6f6f6;
+}

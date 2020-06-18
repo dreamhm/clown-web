@@ -4,7 +4,7 @@ import Home from '@/components/home/Home'
 import Login from '@/components/home/entry/Login'
 import Register from '@/components/home/entry/Register'
 import Main from '@/components/main/Main'
-import Navigation from '@/components/common/Navigation'
+import UserInfo from '@/components/manage/components/UserList'
 
 Vue.use(Router)
 
@@ -43,9 +43,9 @@ const router = new Router({
         isChecked: true
       }
     },{
-      path: '/navigation',
-      name: 'Navigation',
-      component: Navigation,
+      path: '/userInfo',
+      name: 'UserInfo',
+      component: UserInfo,
       meta: {
         isChecked: false
       }
@@ -59,14 +59,11 @@ router.beforeEach(function (to, from, next) {
     next(); // 放行
   } else {
     // 获取localStorage中参数，若有则视为登录 若没有则视为未登录
-    // let userId = localStorage.getItem("userId");
-    // let token = localStorage.getItem("token");
-    // if (userId && token) {
     let token = localStorage.getItem("token");
     if(token){
       next(); // 放行
     } else {
-      next( { name: "Login"}); // 重定向 至登录页面
+      next({ name: "Login"}); // 重定向 至登录页面
     }
   }
 })

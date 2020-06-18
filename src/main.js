@@ -6,8 +6,10 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import { server } from './utils/api'
+import Menu from './components/common/Menu'
 
 Vue.config.productionTip = false
+Vue.component (Menu.name, Menu);
 
 //安装插件
 Vue.use(ElementUI)

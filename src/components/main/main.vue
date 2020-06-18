@@ -98,7 +98,6 @@ export default {
       })
     },
     signOut () {
-      // localStorage.removeItem("userId");
       localStorage.removeItem("token");
       // 重定向页面 Home
       this.$router.push('home');

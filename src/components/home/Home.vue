@@ -1,20 +1,22 @@
 <template>
   <div class="hello">
+    <Menu />
+    <div class="container">
+      <el-row :gutter="10">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
+          <div class="grid-content bg-purple">
+            <el-button type="danger" @click='longin()'>登录</el-button>
+          </div>
+        </el-col>
+        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+          <div class="grid-content bg-purple">
+            <el-button type="danger" @click='register()'>注册</el-button>
+          </div>
+        </el-col>
+      </el-row>
 
-    <el-row :gutter="10">
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-        <div class="grid-content bg-purple">
-          <el-button type="danger" @click='longin()'>登录</el-button>
-        </div>
-      </el-col>
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-        <div class="grid-content bg-purple">
-          <el-button type="danger" @click='register()'>注册</el-button>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-calendar v-model="value"/>
+      <el-calendar v-model="value"/>
+    </div>
   </div>
 </template>
 
@@ -37,6 +39,12 @@ export default {
   }
 }
 </script>
+
+<style >
+.container {
+    padding: 80px 20px 20px 20px;
+    min-width: 1024px;
+}
 .el-col {
   border-radius: 4px;
 }
