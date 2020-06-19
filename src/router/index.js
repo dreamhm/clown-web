@@ -5,6 +5,7 @@ import Login from '@/components/home/entry/Login'
 import Register from '@/components/home/entry/Register'
 import Main from '@/components/main/Main'
 import UserInfo from '@/components/manage/components/UserList'
+import Projectdetails from '@/components/projectdetails/projectdetails'
 
 Vue.use(Router)
 
@@ -46,6 +47,13 @@ const router = new Router({
       path: '/userInfo',
       name: 'UserInfo',
       component: UserInfo,
+      meta: {
+        isChecked: false
+      }
+    },{
+      path: '/projectdetails',
+      name: 'Projectdetails',
+      component: Projectdetails,
       meta: {
         isChecked: false
       }
