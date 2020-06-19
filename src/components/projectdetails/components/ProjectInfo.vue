@@ -24,9 +24,107 @@
           </a>
         </el-tooltip>
       </div>
+      <el-button type="primary" round plain v-show="objProjectDetails.approveState==5 && objProjectDetails.proRole==0" @click="handleSuspended">重启</el-button>
+      <el-popover
+        placement="bottom-end"
+        width="250"
+        trigger="hover"
+        :content="objProjectDetails.projectStopRemark">
+        <el-link style="margin-left: 10px" type="warning" slot="reference" v-show="objProjectDetails.approveState==5">搁置理由</el-link>
+      </el-popover>
+      <el-popover
+        placement="bottom"
+        width="300"
+        v-model="visible">
+        <el-input
+          type="textarea"
+          v-model="content"
+          :rows="3"
+          placeholder="请输入内容">
+        </el-input>
+        <el-button size="small" type="primary" @click="handleSuspended" style="margin-top: 10px;">确定</el-button>
+        <el-button size="small" type="primary" @click="()=>visible = false" style="margin-top: 10px;">取消</el-button>
+        <el-button slot="reference" type="danger" round plain v-show="objProjectDetails.approveState==0 && objProjectDetails.proRole==0 && objProjectDetails.projectStopStatus==1">搁置</el-button>
+      </el-popover>
+      <el-button size="primary" @click="handleDone('已完成')" round icon="el-icon-check" v-if="objProjectDetails.approveState==0 && objProjectDetails.proRole==0 && objProjectDetails.projectStopStatus==1">完成</el-button>
     </div>
+    <h4>项目详情</h4>
+    <el-row :gutter="20">
+      <el-col :xl="12" :lg="12" :md="24" :sm="24">
+        <el-row :gutter="20" class="table-boreder">
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>项目编号：</p><span>{{objProjectDetails.projectNum}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>所属部门：</p><span>{{objProjectDetails.orgName}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>计划起止日期：</p><span>{{objProjectDetails.dateJiaoBegin}} - {{objProjectDetails.dateJiaoEnd}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>实际起止日期：</p><span>{{objProjectDetails.dateStart}} - {{objProjectDetails.dateEnd}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>项目状态：</p><span>{{objProjectDetails.projectState}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>所属合同：</p><span>{{objProjectDetails.contractName}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>委托单位：</p><span style="width: 70%;display: block;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{objProjectDetails.customerName}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>业务取得方式：</p><span>{{objProjectDetails.businessMode}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>计算规则：</p><span>{{objProjectDetails.cacu_rule}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12">
+            <p>总投资（万元)：</p><span>{{objProjectDetails.totalInvestment}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12" style="display:flex;">
+            <p>服务类型：</p><span style="flex:1;">{{objProjectDetails.serviceTypeContent}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="12" :sm="12" style="display:flex;">
+            <p>所属专业：</p><span style="flex:1;">{{objProjectDetails.belongMajor}}</span>
+          </el-col>
+          <el-col :xl="24" :lg="24" :md="24" :sm="24" style="display:flex;">
+            <p>项目概述：</p><span style="width:90%;">{{objProjectDetails.remark}}</span>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :xl="12" :lg="12" :md="24" :sm="24" style="display:block;">
+        <div>
+          <el-button size="small" @click="handleUploadImg" style="margin-bottom:10px;" type="primary" plain>上传图片</el-button>
+          此处只支持JPG、BMP、JPEG、GIF、PNG格式的文件
+        </div>
+        <el-carousel height="500px" :style="'margin:0 auto;width:'+strCarouselWidth" :interval="5000">
+          <el-carousel-item v-for="(item,index) in arrImg" :key="index">
+            <img :src="'/upload/userhead/'+item.url" style="width:100%;height:500px;" />
+          </el-carousel-item>
+        </el-carousel>
+      </el-col>
+    </el-row>
 
-
+    <el-dialog
+     :visible="bolUpload"
+     :before-close="handleClose"
+     title="上传图片"
+     width="800px">
+      <el-upload
+        class="upload-demo"
+        action="/metering/upload/uploadImg"
+        multiple
+        :on-remove="handleRemove"
+        :on-success="handleSuccess"
+        :file-list="tempImg"
+        list-type="picture">
+        <el-button size="small">继续添加</el-button>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary"  size="medium" @click="handleUploadSubmit" :loading="bolSubmit">提交数据</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -35,14 +133,76 @@
     name : 'ProjectInfo',
     data(){
       return {
-        
+        visible: false,
+        content : '',
+        bolUpload : false,  // 
+        arrImg : [],        // 轮播图
+        tempImg:[], //临时图片
+        arrResult : [],
+        bolSubmit : false
       }
     },
     created(){
 
     },
     methods : {
-     
+      // 轮播图
+      getCarousel(){
+        this.$server.getCarousel(getUrlParent("id")).then(data=>{
+          if(data.code == 0){
+            this.arrImg = data.data;
+            this.arrResult = data.data;
+          }
+        })
+      },
+      // 上传图片显示模态框
+      handleUploadImg(){
+        this.bolUpload = true;
+        this.arrImg.forEach(element => {
+          element.url='/upload/userhead/'+element.url;
+          // this.tempImg.push(element);
+        });
+      },
+
+      // 轮播图提交数据
+      handleUploadSubmit(){
+        this.bolSubmit = true;
+      },
+
+      // 删除图片
+      handleRemove(file,fileList){
+        this.arrResult = fileList;
+        this.arrImg = fileList;
+      },
+
+      // 图片上传成功后
+      handleSuccess(response,file){
+        this.arrResult.push({...response,'title':file.response.title,"name" : file.response.original,"fileid":''})
+      },
+
+      // 关闭上传图片模态框
+      handleClose(){
+        this.getCarousel()
+        this.bolUpload = false;
+        this.tempImg=[];
+      },
+
+      // 重启事件
+      handleSuspended(){
+        this.visible = false;
+        // this.$emit('handleSuspended',this.content)
+      },
+
+      // 完成事件
+      handleDone(item){
+        this.$confirm('是否完成?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // this.$emit('handleDone',item)
+        })
+      }
     },
     props : ['objProjectDetails','strCarouselWidth']
   }

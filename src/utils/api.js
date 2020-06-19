@@ -18,5 +18,9 @@ export const server = {
   //
   gitUserInfo(id){
   	return get('/clUserInfo/userInfo/' + id)
+  },
+  // 获取用户组数据
+  getUserGroupList(body){
+    return post(`/clUser/userGroup/queryUserGroupList`)
   }
 }

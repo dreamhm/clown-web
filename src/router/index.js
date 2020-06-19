@@ -41,7 +41,7 @@ const router = new Router({
       name: 'Main',
       component: Main,
       meta: {
-        isChecked: false
+        isChecked: true
       }
     },{
       path: '/userInfo',
@@ -55,7 +55,7 @@ const router = new Router({
       name: 'Projectdetails',
       component: Projectdetails,
       meta: {
-        isChecked: false
+        isChecked: true
       }
     }
   ]

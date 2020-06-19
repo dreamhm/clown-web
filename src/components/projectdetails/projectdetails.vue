@@ -35,6 +35,25 @@
             />
           </el-tab-pane>
           <el-tab-pane name="2">
+            <span slot="label"><i class="el-icon-user-solid"></i> 成员</span>
+            <Member 
+              :arrUserData="arrUserData"
+              @handleUserPage='handleUserPage'
+              @deleteUser='deleteUser'
+              @getUserList='getUserList'
+              :role='objProjectDetails.proRole'
+            />
+          </el-tab-pane>
+          <el-tab-pane name="3">
+            <span slot="label"><i class="el-icon-s-check"></i> 审批</span>
+            <Approval 
+              :arrUserGroupData="arrUserGroupData"
+              :objProjectDetails="objProjectDetails"
+              @handleApproval='handleApproval'
+              @handleApprovalPage='handleApprovalPage'
+            />
+          </el-tab-pane>
+          <el-tab-pane name="4">
             <span slot="label"><i class="el-icon-s-data"></i> 阶段</span>
             <ProjectInfo
               @handleSuspended='handleSuspended'
@@ -43,7 +62,7 @@
               :strCarouselWidth='strCarouselWidth'
             />
           </el-tab-pane>
-          <el-tab-pane name="3">
+          <el-tab-pane name="5">
             <span slot="label"><i class="el-icon-s-claim"></i> 任务</span>
             <ProjectInfo
               @handleSuspended='handleSuspended'
@@ -51,27 +70,8 @@
               :objProjectDetails='objProjectDetails'
               :strCarouselWidth='strCarouselWidth'
             />
-          </el-tab-pane>
-          <el-tab-pane name="4">
-            <span slot="label"><i class="el-icon-s-check"></i> 审批</span>
-            <ProjectInfo
-              @handleSuspended='handleSuspended'
-              @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
-              :strCarouselWidth='strCarouselWidth'
-            />
-          </el-tab-pane>
-          <el-tab-pane name="5">
+          </el-tab-pane>          <el-tab-pane name="6">
             <span slot="label"><i class="el-icon-s-comment"></i> 动态</span>
-            <ProjectInfo
-              @handleSuspended='handleSuspended'
-              @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
-              :strCarouselWidth='strCarouselWidth'
-            />
-          </el-tab-pane>
-          <el-tab-pane name="6">
-            <span slot="label"><i class="el-icon-user-solid"></i> 成员</span>
             <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
@@ -143,6 +143,8 @@
 
 <script>
 import ProjectInfo from './components/ProjectInfo';   // 详情
+import Member from './components/Member';             // 成员
+import Approval from './components/Approval';         // 审批
 
 import '../../assets/reset.css';
 // import { getUrlParent } from '../../utils/tool';
@@ -153,12 +155,17 @@ export default {
   },
   data(){
     return {
-      objProjectDetails:{
+      arrUserData : {},        // 人员
+      arrUserGroupData : {},   // 用户组
+      arrApprovalData : {},    // 审批
+      objProjectDetails :{
         'projectHead':require('@/assets/mainImg/5.jpg'),
         'projecttitle':'SEMIR',
         'customerName':'SEMIR单位',
         'createdate':200,
         'proRole':0,
+        'approveState':0,
+        'projectStopStatus':1,
         "milepost": [{
           "id": "1",
           "pId": "0",
@@ -415,8 +422,10 @@ export default {
           // this.getProjectDetails();
           break;
         case "2":
+          this.getUserList();
           break;
         case "3":
+          this.getUserGroupList();
           break;
         case "4":
           break;
@@ -437,12 +446,58 @@ export default {
           break;
       }
     },
+
+    // 成员列表数据
+    getUserList(){
+      this.$server.getUserList().then(data=>{
+        this.arrUserData = data.result
+      })
+    },
+    // 用户组数据
+    getUserGroupList(){
+      this.$server.getUserGroupList().then(data=>{
+        this.arrUserGroupData = data.result
+      })
+    },
     handleSuspended(data){},
-    handleDone(item){}
+    handleDone(item){},
+    // 人员列表-分页
+    handleUserPage(num,name){
+      this.getUserList(num,20,name)
+    },
+    // 成员列表-删除
+    deleteUser(id){
+      this.$server.deleteUser(id).then(data=>{
+        if(data.code == 0){
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.getUserList(1,20)
+        }
+      })
+    },
+   
+    // 审批
+    handleApproval(num){
+      this.getApprovalList(num,20)
+    },
+     // 审批分页
+    handleApprovalPage(num){
+      this.getApprovalList(num,20)
+    },
+
+    // 任务列表-分页
+    handlePage(num){
+      this.getTaksList(num,20)
+    },
   },
   components : {
     ProjectInfo,      // 项目详情
-  }
+    Member,           // 成员
+    Approval,         // 审批
+  },
+
 }
 </script>
 
