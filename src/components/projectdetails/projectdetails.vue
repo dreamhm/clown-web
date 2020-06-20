@@ -38,9 +38,9 @@
             <span slot="label"><i class="el-icon-user-solid"></i> 成员</span>
             <Member 
               :arrUserData="arrUserData"
+              @getUserList='getUserList'
               @handleUserPage='handleUserPage'
               @deleteUser='deleteUser'
-              @getUserList='getUserList'
               :role='objProjectDetails.proRole'
             />
           </el-tab-pane>
@@ -422,7 +422,7 @@ export default {
           // this.getProjectDetails();
           break;
         case "2":
-          this.getUserList();
+          this.getUserList(1);
           break;
         case "3":
           this.getUserGroupList();
@@ -446,13 +446,34 @@ export default {
           break;
       }
     },
-
+    
     // 成员列表数据
-    getUserList(){
-      this.$server.getUserList().then(data=>{
+    getUserList(page, username){
+      this.$server.getUserList({
+        "page" : page,
+        "pageCount" : 15,
+        "username" : username
+      }).then(data=>{
         this.arrUserData = data.result
       })
     },
+    // 成员列表-分页
+    handleUserPage(page, username){
+      this.getUserList(page, username)
+    },
+    // 成员列表-删除
+    deleteUser(id){
+      this.$server.deleteUser(id).then(data=>{
+        if(data.code == 1001){
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.getUserList(1)
+        }
+      })
+    },
+
     // 用户组数据
     getUserGroupList(){
       this.$server.getUserGroupList().then(data=>{
@@ -461,23 +482,6 @@ export default {
     },
     handleSuspended(data){},
     handleDone(item){},
-    // 人员列表-分页
-    handleUserPage(num,name){
-      this.getUserList(num,20,name)
-    },
-    // 成员列表-删除
-    deleteUser(id){
-      this.$server.deleteUser(id).then(data=>{
-        if(data.code == 0){
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          this.getUserList(1,20)
-        }
-      })
-    },
-   
     // 审批
     handleApproval(num){
       this.getApprovalList(num,20)

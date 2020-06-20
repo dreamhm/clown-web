@@ -1,4 +1,4 @@
-import { get,post } from './httpServer';
+import { get,post,del } from './httpServer';
 
 export const server = {
 
@@ -10,14 +10,17 @@ export const server = {
   userRegister(body){
     return post(`/clUserInfo/userInfo/addUserInfo`, body)
   },
-  
   // main.html-用户列表
   getUserList(body){
-    return post(`/clUserInfo/userInfo/queryUserList`)
+    return post(`/clUserInfo/userInfo/queryUserList`, body)
   },
   //
   gitUserInfo(id){
   	return get('/clUserInfo/userInfo/' + id)
+  },
+  // main.html-用户删除
+  deleteUser(id){
+    return del('/clUserInfo/userInfo/' + id)
   },
   // 获取用户组数据
   getUserGroupList(body){

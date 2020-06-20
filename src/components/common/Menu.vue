@@ -50,7 +50,7 @@
             </a>
           </el-menu-item>
           <el-menu-item index="6">
-            <a href="main.html">
+            <a href="home">
               <i class="el-icon-s-promotion"></i>返回首页
             </a>
           </el-menu-item>
