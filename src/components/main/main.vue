@@ -37,19 +37,22 @@ export default {
     }
   },
   created(){
-    this.getUserList();
+    this.getUserList(1);
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
-    getUserList(){
-      this.$server.getUserList().then(data=>{
-        this.userList = data.result;
+    getUserList(page, username){
+      this.$server.getUserList({
+        "page" : page,
+        "pageCount" : 15,
+        "username" : username
+      }).then(data=>{
+        this.userList = data.result.data;
       })
     },
     gitUserInfo(id){
-      console.log(id);
       this.$server.gitUserInfo(id).then(data=>{
         this.userInfo = data.result;
       })

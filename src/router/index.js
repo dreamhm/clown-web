@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/home/Home'
-import Login from '@/components/home/entry/Login'
-import Register from '@/components/home/entry/Register'
-import Main from '@/components/main/Main'
-import UserInfo from '@/components/manage/components/UserList'
-import Projectdetails from '@/components/projectdetails/projectdetails'
+import Home from '@/components/home/Home'                           // 访问页面
+import Login from '@/components/home/entry/Login'                   // 登录
+import Register from '@/components/home/entry/Register'             // 注册
+import Main from '@/components/main/Main'                           // 登录主页
+import UserInfo from '@/components/manage/components/UserList'      // 用户列表
+import Powerdetails from '@/components/powerdetails/powerdetails'   // 权限管理
 
 Vue.use(Router)
 
@@ -48,12 +48,12 @@ const router = new Router({
       name: 'UserInfo',
       component: UserInfo,
       meta: {
-        isChecked: false
+        isChecked: true
       }
     },{
-      path: '/projectdetails',
-      name: 'Projectdetails',
-      component: Projectdetails,
+      path: '/powerdetails',
+      name: 'Powerdetails',
+      component: Powerdetails,
       meta: {
         isChecked: true
       }

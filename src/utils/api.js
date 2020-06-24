@@ -24,6 +24,6 @@ export const server = {
   },
   // 获取用户组数据
   getUserGroupList(body){
-    return post(`/clUser/userGroup/queryUserGroupList`)
+    return post(`/clUser/userGroup/queryUserGroupList`, body)
   }
 }

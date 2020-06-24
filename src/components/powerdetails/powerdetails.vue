@@ -5,17 +5,17 @@
       <div class="header">
         <div class="title">
           <div class="title-box">
-            <img :src="objProjectDetails.projectHead" style="width: 50px;height: 50px;margin-right: 10px;">
+            <img :src="objUserDetails.projectHead" style="width: 50px;height: 50px;margin-right: 10px;">
             <div>
-              <span class="tit">{{objProjectDetails.projecttitle}}</span>
-              <p style="color:#999999;">委托单位：{{objProjectDetails.customerName?objProjectDetails.customerName:'暂无'}}，
-                <span v-if="objProjectDetails.createdate >= 0">剩余{{objProjectDetails.createdate}}天</span>
+              <span class="tit">{{objUserDetails.projecttitle}}</span>
+              <p style="color:#999999;">委托单位：{{objUserDetails.customerName?objUserDetails.customerName:'暂无'}}，
+                <span v-if="objUserDetails.createdate >= 0">剩余{{objUserDetails.createdate}}天</span>
                 <span v-else style="color:#F56C6C;font-weight:600;">已过期</span>
               </p>
             </div>
           </div>
           <el-button-group>
-            <el-button type="default" size="small" @click="handleEdit" v-if="objProjectDetails.proRole==0">编辑项目</el-button>
+            <el-button type="default" size="small" @click="handleEdit" v-if="objUserDetails.proRole==0">编辑项目</el-button>
             <el-button type="default" size="small" @click="handleSee" v-else>查看项目</el-button>
             <el-button type="default" size="small" @click="handleCommission">绩效管理</el-button>
             <el-button type="default" size="small" @click="handleWorkingGroup">工作组备案信息</el-button>
@@ -27,10 +27,10 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
           <el-tab-pane name="1">
             <span slot="label"><i class="el-icon-s-operation"></i> 详情</span>
-            <ProjectInfo
+            <MemberInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
             />
           </el-tab-pane>
@@ -41,97 +41,97 @@
               @getUserList='getUserList'
               @handleUserPage='handleUserPage'
               @deleteUser='deleteUser'
-              :role='objProjectDetails.proRole'
+              :role='objUserDetails.proRole'
             />
           </el-tab-pane>
           <el-tab-pane name="3">
-            <span slot="label"><i class="el-icon-s-check"></i> 审批</span>
-            <Approval 
+            <span slot="label"><i class="el-icon-s-check"></i> 成员组</span>
+            <MemberGroup 
               :arrUserGroupData="arrUserGroupData"
-              :objProjectDetails="objProjectDetails"
+              :objUserDetails="objUserDetails"
               @handleApproval='handleApproval'
               @handleApprovalPage='handleApprovalPage'
             />
           </el-tab-pane>
           <el-tab-pane name="4">
             <span slot="label"><i class="el-icon-s-data"></i> 阶段</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="5">
             <span slot="label"><i class="el-icon-s-claim"></i> 任务</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>          <el-tab-pane name="6">
             <span slot="label"><i class="el-icon-s-comment"></i> 动态</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="7">
             <span slot="label"><i class="el-icon-s-order"></i> 文件</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="8">
             <span slot="label"><i class="el-icon-s-marketing"></i> 报告</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="9">
             <span slot="label"><i class="el-icon-s-cooperation"></i> 合同</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="10">
             <span slot="label"><i class="el-icon-s-check"></i> 用章</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="11">
             <span slot="label"><i class="el-icon-s-management"></i> 归档</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
           <el-tab-pane name="12">
             <span slot="label"><i class="el-icon-bank-card"></i> 财务</span>
-            <ProjectInfo
+            <!-- <ProjectInfo
               @handleSuspended='handleSuspended'
               @handleDone='handleDone'
-              :objProjectDetails='objProjectDetails'
+              :objUserDetails='objUserDetails'
               :strCarouselWidth='strCarouselWidth'
-            />
+            /> -->
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -142,14 +142,14 @@
 </template>
 
 <script>
-import ProjectInfo from './components/ProjectInfo';   // 详情
+import MemberInfo from './components/MemberInfo';   // 详情
 import Member from './components/Member';             // 成员
-import Approval from './components/Approval';         // 审批
+import MemberGroup from './components/MemberGroup';         // 审批
 
 import '../../assets/reset.css';
 // import { getUrlParent } from '../../utils/tool';
 export default {
-  name : 'ProjectDetails',
+  name : 'PowerDetails',
   provide () {
   
   },
@@ -158,7 +158,7 @@ export default {
       arrUserData : {},        // 人员
       arrUserGroupData : {},   // 用户组
       arrApprovalData : {},    // 审批
-      objProjectDetails :{
+      objUserDetails :{
         'projectHead':require('@/assets/mainImg/5.jpg'),
         'projecttitle':'SEMIR',
         'customerName':'SEMIR单位',
@@ -425,7 +425,7 @@ export default {
           this.getUserList(1);
           break;
         case "3":
-          this.getUserGroupList();
+          this.getUserGroupList(1);
           break;
         case "4":
           break;
@@ -475,8 +475,11 @@ export default {
     },
 
     // 用户组数据
-    getUserGroupList(){
-      this.$server.getUserGroupList().then(data=>{
+    getUserGroupList(page){
+      this.$server.getUserGroupList({
+        "page" : page,
+        "pageCount" : 15
+      }).then(data=>{
         this.arrUserGroupData = data.result
       })
     },
@@ -497,9 +500,9 @@ export default {
     },
   },
   components : {
-    ProjectInfo,      // 项目详情
+    MemberInfo,       // 成员详情
     Member,           // 成员
-    Approval,         // 审批
+    MemberGroup,      // 成员组
   },
 
 }

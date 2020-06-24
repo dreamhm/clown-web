@@ -6,7 +6,7 @@
     <h4>进度里程碑</h4>
     <div class="planBox">
       <div class="plan">
-        <el-tooltip placement="bottom" v-for="item in objProjectDetails.milepost" :key="item.id">
+        <el-tooltip placement="bottom" v-for="item in objUserDetails.milepost" :key="item.id">
           <div slot="content">
             <ul class="planList">
               <template v-for="(item,index) in item.children">
@@ -24,13 +24,13 @@
           </a>
         </el-tooltip>
       </div>
-      <el-button type="primary" round plain v-show="objProjectDetails.approveState==5 && objProjectDetails.proRole==0" @click="handleSuspended">重启</el-button>
+      <el-button type="primary" round plain v-show="objUserDetails.approveState==5 && objUserDetails.proRole==0" @click="handleSuspended">重启</el-button>
       <el-popover
         placement="bottom-end"
         width="250"
         trigger="hover"
-        :content="objProjectDetails.projectStopRemark">
-        <el-link style="margin-left: 10px" type="warning" slot="reference" v-show="objProjectDetails.approveState==5">搁置理由</el-link>
+        :content="objUserDetails.projectStopRemark">
+        <el-link style="margin-left: 10px" type="warning" slot="reference" v-show="objUserDetails.approveState==5">搁置理由</el-link>
       </el-popover>
       <el-popover
         placement="bottom"
@@ -44,52 +44,52 @@
         </el-input>
         <el-button size="small" type="primary" @click="handleSuspended" style="margin-top: 10px;">确定</el-button>
         <el-button size="small" type="primary" @click="()=>visible = false" style="margin-top: 10px;">取消</el-button>
-        <el-button slot="reference" type="danger" round plain v-show="objProjectDetails.approveState==0 && objProjectDetails.proRole==0 && objProjectDetails.projectStopStatus==1">搁置</el-button>
+        <el-button slot="reference" type="danger" round plain v-show="objUserDetails.approveState==0 && objUserDetails.proRole==0 && objUserDetails.projectStopStatus==1">搁置</el-button>
       </el-popover>
-      <el-button size="primary" @click="handleDone('已完成')" round icon="el-icon-check" v-if="objProjectDetails.approveState==0 && objProjectDetails.proRole==0 && objProjectDetails.projectStopStatus==1">完成</el-button>
+      <el-button size="primary" @click="handleDone('已完成')" round icon="el-icon-check" v-if="objUserDetails.approveState==0 && objUserDetails.proRole==0 && objUserDetails.projectStopStatus==1">完成</el-button>
     </div>
     <h4>项目详情</h4>
     <el-row :gutter="20">
       <el-col :xl="12" :lg="12" :md="24" :sm="24">
         <el-row :gutter="20" class="table-boreder">
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>项目编号：</p><span>{{objProjectDetails.projectNum}}</span>
+            <p>项目编号：</p><span>{{objUserDetails.projectNum}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>所属部门：</p><span>{{objProjectDetails.orgName}}</span>
+            <p>所属部门：</p><span>{{objUserDetails.orgName}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>计划起止日期：</p><span>{{objProjectDetails.dateJiaoBegin}} - {{objProjectDetails.dateJiaoEnd}}</span>
+            <p>计划起止日期：</p><span>{{objUserDetails.dateJiaoBegin}} - {{objUserDetails.dateJiaoEnd}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>实际起止日期：</p><span>{{objProjectDetails.dateStart}} - {{objProjectDetails.dateEnd}}</span>
+            <p>实际起止日期：</p><span>{{objUserDetails.dateStart}} - {{objUserDetails.dateEnd}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>项目状态：</p><span>{{objProjectDetails.projectState}}</span>
+            <p>项目状态：</p><span>{{objUserDetails.projectState}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>所属合同：</p><span>{{objProjectDetails.contractName}}</span>
+            <p>所属合同：</p><span>{{objUserDetails.contractName}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>委托单位：</p><span style="width: 70%;display: block;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{objProjectDetails.customerName}}</span>
+            <p>委托单位：</p><span style="width: 70%;display: block;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{objUserDetails.customerName}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>业务取得方式：</p><span>{{objProjectDetails.businessMode}}</span>
+            <p>业务取得方式：</p><span>{{objUserDetails.businessMode}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>计算规则：</p><span>{{objProjectDetails.cacu_rule}}</span>
+            <p>计算规则：</p><span>{{objUserDetails.cacu_rule}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12">
-            <p>总投资（万元)：</p><span>{{objProjectDetails.totalInvestment}}</span>
+            <p>总投资（万元)：</p><span>{{objUserDetails.totalInvestment}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12" style="display:flex;">
-            <p>服务类型：</p><span style="flex:1;">{{objProjectDetails.serviceTypeContent}}</span>
+            <p>服务类型：</p><span style="flex:1;">{{objUserDetails.serviceTypeContent}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="12" :sm="12" style="display:flex;">
-            <p>所属专业：</p><span style="flex:1;">{{objProjectDetails.belongMajor}}</span>
+            <p>所属专业：</p><span style="flex:1;">{{objUserDetails.belongMajor}}</span>
           </el-col>
           <el-col :xl="24" :lg="24" :md="24" :sm="24" style="display:flex;">
-            <p>项目概述：</p><span style="width:90%;">{{objProjectDetails.remark}}</span>
+            <p>项目概述：</p><span style="width:90%;">{{objUserDetails.remark}}</span>
           </el-col>
         </el-row>
       </el-col>
@@ -130,7 +130,7 @@
 
 <script>
   export default {
-    name : 'ProjectInfo',
+    name : 'MemberInfo',
     data(){
       return {
         visible: false,
@@ -204,7 +204,7 @@
         })
       }
     },
-    props : ['objProjectDetails','strCarouselWidth']
+    props : ['objUserDetails','strCarouselWidth']
   }
 </script>
 

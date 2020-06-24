@@ -48,12 +48,9 @@
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <!-- <el-button-group> -->
-            <el-button @click="handleClick(scope.row)" type="primary" icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="primary" icon="el-icon-share" size="mini"></el-button>
-            <el-button type="primary" icon="el-icon-delete" size="mini"></el-button>
-          <!-- </el-button-group> -->
-         
+          <el-button @click="handleClick(scope.row)" type="primary" icon="el-icon-edit" size="mini"></el-button>
+          <el-button type="primary" icon="el-icon-share" size="mini"></el-button>
+          <el-button type="primary" icon="el-icon-delete" size="mini"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,15 +72,19 @@
       }
     },
     created(){
-      this.getUserList();
+      this.getUserList(1);
     },
     methods: {
       handleClick(row) {
         console.log(row);
       },
-      getUserList(){
-        this.$server.getUserList().then(data=>{
-          this.userList = data.result;
+      getUserList(page, username){
+        this.$server.getUserList({
+          "page" : page,
+          "pageCount" : 10,
+          "username" : username
+        }).then(data=>{
+          this.userList = data.result.data;
         })
       },
       handleSelectionChange(rows){
@@ -97,7 +98,11 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
+      },
+      addUserInfo(){
+
       }
+
     }
   }
 </script>

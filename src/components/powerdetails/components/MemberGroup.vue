@@ -3,7 +3,23 @@
  */
 <template>
   <div>
-    <el-button type="primary" size="medium" plain @click="handleApproval(objProjectDetails)">行政审批</el-button>
+    <div>
+      <el-form v-model="objSearch">
+        <el-row :gutter="20">
+          <el-col :span="3">
+            <el-form-item>
+              <el-input size="medium" placeholder="请输入姓名" v-model="objSearch.userGroupName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" style="padding-top:2px;">
+            <el-button size="medium" type="primary" @click="handleSearch">搜索</el-button>
+            <el-button size="medium" type="default" @click="handleIsEdit()">添加成员</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
+    </div>
+
+    <el-button type="primary" size="medium" plain @click="handleApproval(objUserDetails)">行政审批</el-button>
     <el-table
       :data="arrUserGroupData.data"
       style="width: 100%">
@@ -44,19 +60,22 @@
 </template>
 
 <script>
-  // import { getUrlParent } from '../../../utils/tool';
   export default {
-    name : 'Approval',
+    name : 'MemberGroup',
     data(){
       return {
-        
+        objSearch : {
+          userGroupName : ''
+        },
       }
     },
     methods : {
+      handleSearch(){
+        // this.$emit('getUserList',1, this.objSearch.userName)
+      },
+
       handleApproval(item){
-        sessionStorage.setItem('projectName',item.projecttitle)
-        window.open(`restructureAllocApprove.html?from=project&belongProject=${getUrlParent('id')}`)
-        // this.$emit('handleApproval')
+        console.log("行政s")
       },
 
       // 分页
@@ -64,7 +83,7 @@
         this.$emit('handleApprovalPage',num)
       },
     },
-    props : ['arrUserGroupData','objProjectDetails']
+    props : ['arrUserGroupData','objUserDetails']
   }
 </script>
 

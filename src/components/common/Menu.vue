@@ -10,7 +10,7 @@
       <el-col :span="17" :lg="17" :md="15">
         <el-menu mode="horizontal" style="display: flex;">
           <el-menu-item index="1">
-            <a href="index.html">
+            <a href="main">
               <i class="el-icon-s-help"></i>导航页
             </a>
           </el-menu-item>
@@ -38,7 +38,7 @@
             </div>
           </el-menu-item>
           <el-menu-item index="4">
-            <a href="contactMyWorkmate.html">
+            <a href="projectdetails">
               <i class="el-icon-s-order"></i>通讯录
             </a>
           </el-menu-item>
